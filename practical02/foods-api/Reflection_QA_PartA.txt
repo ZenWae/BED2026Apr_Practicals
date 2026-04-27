@@ -1,0 +1,3 @@
+During Part A, I learned that REST APIs allow communication between clients and servers using standard HTTP methods to perform CRUD operations.
+I understood how GET, POST, PUT, and DELETE map to retrieving, creating, updating, and deleting data respectively. 
+I also faced some challenges in structuring the endpoints correctly and handling errors, especially when updating or deleting resources that may not exist.
