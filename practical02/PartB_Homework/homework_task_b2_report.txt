@@ -1,0 +1,11 @@
+In my foods-api API, app.use(express.json()) is middleware that allows Express to read JSON data sent by the client. Without it, the API cannot properly access JSON input from requests such as POST or PUT.
+
+req.body is used to get data sent inside the request body. For example, when adding a new food item, the name, price, or category can be received from req.body.
+
+req.query is used to get optional data from the URL query string. For example, /foods?category=drinks can use req.query.category to filter food items.
+
+req.params.id is used to get a specific value from the route URL. For example, /foods/3 can use req.params.id to find the food item with ID 3.
+
+Different HTTP methods are important because they clearly show the purpose of each request. GET is used to read data, POST is used to create new data, PUT is used to update existing data, and DELETE is used to remove data. These methods match CRUD operations: Create, Read, Update, and Delete.
+
+HTTP status codes help the client understand the result of a request. 200 OK means the request was successful. 201 Created means a new record was successfully created. 400 Bad Request means the client sent invalid or missing data. 404 Not Found means the requested item or route does not exist. 500 Internal Server Error means something went wrong on the server side, such as a database or coding error.
