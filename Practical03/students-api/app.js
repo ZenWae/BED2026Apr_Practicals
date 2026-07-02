@@ -1,12 +1,15 @@
-const express = require("express");
-const sql = require("mssql");
-const dbConfig = require("./dbConfig");
+// Practical 03 - Students API with SQL Server
+// Exam cheat sheet: CRUD for Students table in SQL Server.
 
-const app = express();
-const port = process.env.PORT || 3000;
+const express = require("express"); // Import Express.
+const sql = require("mssql"); // Import SQL Server driver.
+const dbConfig = require("./dbConfig"); // Load DB config.
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+const app = express(); // Create app.
+const port = process.env.PORT || 3000; // Port number.
+
+app.use(express.json()); // Parse JSON input.
+app.use(express.urlencoded({ extended: false })); // Parse form input.
 
 // --- GET all students ---
 app.get("/students", async (req, res) => {

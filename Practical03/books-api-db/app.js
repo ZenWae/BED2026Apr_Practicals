@@ -1,13 +1,17 @@
-const express = require("express");
-const sql = require("mssql");
-const dbConfig = require("./dbConfig");
+// Practical 03 - Books API with SQL Server
+// Exam cheat sheet: database CRUD using SQL Server.
 
-const app = express();
-const port = process.env.PORT || 3000;
+const express = require("express"); // Import Express.
+const sql = require("mssql"); // Import SQL Server driver.
+const dbConfig = require("./dbConfig"); // Load DB config.
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+const app = express(); // Create app.
+const port = process.env.PORT || 3000; // Port number.
 
+app.use(express.json()); // Parse JSON input.
+app.use(express.urlencoded({ extended: false })); // Parse form input.
+
+// Start server and connect to DB.
 app.listen(port, async () => {
     try {
         await sql.connect(dbConfig);
@@ -21,6 +25,7 @@ app.listen(port, async () => {
     console.log(`Server listening on port ${port}`);
 });
 
+// Gracefully close the SQL connection when the server stops.
 process.on("SIGINT", async () => {
     console.log("Server is gracefully shutting down");
 
@@ -32,7 +37,7 @@ process.on("SIGINT", async () => {
 
 // --- GET Routes  ---
 
-// GET all books
+// GET all books from the Books table.
 app.get("/books", async (req, res) => {
   let connection; // Declare connection outside try for finally block
   try {

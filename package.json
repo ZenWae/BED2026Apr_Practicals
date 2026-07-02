@@ -17,5 +17,10 @@
   "bugs": {
     "url": "https://github.com/ZenWae/BED2026Apr_Practicals/issues"
   },
-  "homepage": "https://github.com/ZenWae/BED2026Apr_Practicals#readme"
+  "homepage": "https://github.com/ZenWae/BED2026Apr_Practicals#readme",
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "joi": "^18.2.1",
+    "mssql": "^12.5.5"
+  }
 }
