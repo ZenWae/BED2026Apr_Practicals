@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edit User</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        margin: 20px;
+      }
+      form div {
+        margin-bottom: 15px;
+      }
+      label {
+        display: block;
+        margin-bottom: 5px;
+      }
+      input[type="text"],
+      input[type="email"] {
+        width: 300px;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+      button {
+        padding: 10px 15px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #0056b3;
+      }
+      #message {
+        margin-top: 15px;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Edit User</h1>
+    <p><a href="users.html">Back to Users List</a></p>
+
+    <div id="loadingMessage">Loading user data...</div>
+    <form id="editUserForm" style="display: none;">
+      <input type="hidden" id="userId" />
+      <div>
+        <label for="editUsername">Username:</label>
+        <input type="text" id="editUsername" name="username" required />
+      </div>
+      <div>
+        <label for="editEmail">Email:</label>
+        <input type="email" id="editEmail" name="email" required />
+      </div>
+      <button type="submit">Update User</button>
+    </form>
+
+    <div id="message"></div>
+
+    <script src="user-edit-script.js"></script>
+  </body>
+</html>

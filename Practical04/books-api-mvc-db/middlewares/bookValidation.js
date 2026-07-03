@@ -1,62 +1,77 @@
-// Validation middleware for the Books MVC API.
-// This file checks incoming request data before it reaches the controller.
+// ===== BOOK VALIDATION MIDDLEWARE (bookValidation.js) =====
+// This file protects the API by validating request data before it reaches
+// the controller or database layer. Joi is used to check that incoming
+// records contain the required fields and that the values match the expected
+// format. This prevents invalid data from being stored and makes user-facing
+// error messages clearer and more consistent.
 
-const Joi = require("joi"); // Import Joi for validation.
+const Joi = require("joi"); // Import Joi validation library
 
-// Validation schema for books (used for POST/PUT).
-const bookSchema = Joi.object({
-  title: Joi.string().min(1).max(50).required().messages({
-    "string.base": "Title must be a string",
-    "string.empty": "Title cannot be empty",
-    "string.min": "Title must be at least 1 character long",
-    "string.max": "Title cannot exceed 50 characters",
-    "any.required": "Title is required",
+// Define a validation schema for book objects
+// This schema specifies what fields a book should have and their requirements
+const bookSchema = Joi.object({ // Define a validation schema for book objects
+  // Title field requirements:
+  // - Must be a string
+  // - Minimum 1 character, maximum 50 characters
+  // - Is required (cannot be missing)
+  title: Joi.string().min(1).max(50).required().messages({ // Title must be a non-empty string
+    "string.base": "Title must be a string", // Error if not a string
+    "string.empty": "Title cannot be empty", // Error if empty string
+    "string.min": "Title must be at least 1 character long", // Error if too short
+    "string.max": "Title cannot exceed 50 characters", // Error if too long
+    "any.required": "Title is required", // Error if missing
   }),
-  author: Joi.string().min(1).max(50).required().messages({
-    "string.base": "Author must be a string",
-    "string.empty": "Author cannot be empty",
-    "string.min": "Author must be at least 1 character long",
-    "string.max": "Author cannot exceed 50 characters",
-    "any.required": "Author is required",
+  // Author field requirements: same as title
+  author: Joi.string().min(1).max(50).required().messages({ // Author must also be a non-empty string
+    "string.base": "Author must be a string", // Error if not a string
+    "string.empty": "Author cannot be empty", // Error if empty string
+    "string.min": "Author must be at least 1 character long", // Error if too short
+    "string.max": "Author cannot exceed 50 characters", // Error if too long
+    "any.required": "Author is required", // Error if missing
   }),
-  // Add validation for other fields if necessary (e.g., year, genre)
 });
 
-// Middleware to validate book data (for POST/PUT)
+// Middleware function to validate book data
+// This is called before creating or updating a book
 function validateBook(req, res, next) {
-  // Validate the request body against the bookSchema
-  const { error } = bookSchema.validate(req.body, { abortEarly: false }); // abortEarly: false collects all errors
+  // Validate the request body against our schema
+  // abortEarly: false collects ALL validation errors, not just the first one
+  const { error } = bookSchema.validate(req.body, { abortEarly: false }); // Validate body and collect all errors
 
+  // If validation failed (error is not null)
   if (error) {
-    // If validation fails, format the error messages and send a 400 response
-    const errorMessage = error.details
-      .map((detail) => detail.message)
-      .join(", ");
-    return res.status(400).json({ error: errorMessage });
-  }
+    // Extract error messages from each failed validation
+    // Map over the details array and get just the message from each error
+    const errorMessage = error.details.map((detail) => detail.message).join(", "); // Build a single error string
+    // Return a 400 Bad Request response with the error messages
+    return res.status(400).json({ error: errorMessage }); // Return validation failures as 400 response
+  } 
 
-  // If validation succeeds, pass control to the next middleware/route handler
-  next();
+  // If validation passed, continue to the next middleware/handler
+  // This is how middleware chains work - next() passes control to the next function
+  next(); // Continue to the next handler if validation passed
 }
 
-// Middleware to validate book ID from URL parameters (for GET by ID, PUT, DELETE)
+// Middleware function to validate book IDs
+// This is called for routes that need a book ID (like /books/:id)
 function validateBookId(req, res, next) {
-  // Parse the ID from request parameters
-  const id = parseInt(req.params.id);
+  // Parse the id parameter from the route URL to a number
+  const id = parseInt(req.params.id); // Parse id parameter from the route
 
-  // Check if the parsed ID is a valid positive number
+  // Check if the ID is invalid:
+  // isNaN(id) returns true if parsing failed (not a valid number)
+  // id <= 0 returns true if the ID is 0 or negative (IDs should be positive)
   if (isNaN(id) || id <= 0) {
-    // If not valid, send a 400 response
-    return res
-      .status(400)
-      .json({ error: "Invalid book ID. ID must be a positive number" });
+    // Return a 400 Bad Request response
+    return res.status(400).json({ error: "Invalid book ID. ID must be a positive number" }); // Reject invalid IDs
   }
 
-  // If validation succeeds, pass control to the next middleware/route handler
-  next();
+  // If the ID is valid, continue to the next middleware/handler
+  next(); // Continue if the ID is valid
 }
 
+// Export the middleware functions so they can be used in other files
 module.exports = {
   validateBook,
   validateBookId,
-};
+}; // Export validation middleware functions

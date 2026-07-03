@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>View User</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        margin: 20px;
+      }
+      .user-details {
+        margin-top: 20px;
+        padding: 15px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        max-width: 500px;
+      }
+      .user-details p {
+        margin: 10px 0;
+      }
+      #message {
+        margin-top: 15px;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>View User</h1>
+    <p><a href="users.html">Back to Users List</a></p>
+
+    <div id="loadingMessage">Loading user details...</div>
+    <div id="userDetails" class="user-details" style="display: none;">
+      <p><strong>ID:</strong> <span id="userIdValue"></span></p>
+      <p><strong>Username:</strong> <span id="userUsernameValue"></span></p>
+      <p><strong>Email:</strong> <span id="userEmailValue"></span></p>
+    </div>
+
+    <div id="message"></div>
+
+    <script src="user-view-script.js"></script>
+  </body>
+</html>

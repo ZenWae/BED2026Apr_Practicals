@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>View Book</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        margin: 20px;
+      }
+      .book-details {
+        margin-top: 20px;
+        padding: 15px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        max-width: 500px;
+      }
+      .book-details p {
+        margin: 10px 0;
+      }
+      #message {
+        margin-top: 15px;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>View Book</h1>
+    <p><a href="index.html">Back to Books List</a></p>
+
+    <div id="loadingMessage">Loading book details...</div>
+    <div id="bookDetails" class="book-details" style="display: none;">
+      <p><strong>ID:</strong> <span id="bookIdValue"></span></p>
+      <p><strong>Title:</strong> <span id="bookTitleValue"></span></p>
+      <p><strong>Author:</strong> <span id="bookAuthorValue"></span></p>
+    </div>
+
+    <div id="message"></div>
+
+    <script src="view-script.js"></script>
+  </body>
+</html>
