@@ -22,5 +22,8 @@
     "dotenv": "^17.4.2",
     "joi": "^18.2.1",
     "mssql": "^12.5.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
   }
 }
